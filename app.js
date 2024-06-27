@@ -1,9 +1,19 @@
 const express = require("express");
-const dotenv = require("dotenv").config();
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 
-console.log(process.env.mongo_connect);
+const mongo_connect = process.env.mongo_connect;
+
+mongoose
+  .connect(mongo_connect, {})
+  .then(() => {
+    console.log("Connection was successful");
+  })
+  .catch((err) => {
+    console.log("Connection failed!");
+  });
 
 app.get("/", (req, res) => {
   res.status(200).json({
