@@ -4,11 +4,13 @@ const mongoose = require("mongoose");
 const createMovie = async (req, res) => {
   const MoviesModel = mongoose.model("movies"); // Should be exact to model name.
 
+  console.log(req.body);
+
   await MoviesModel.create({
-    name: "The Matrix",
-    info: "This is a very goooood movie",
-    image: "",
-    rating: 8.7,
+    name: req.body.name,
+    info: req.body.info,
+    image: req.body.image,
+    rating: req.body.rating,
   });
 
   res.status(200).json({

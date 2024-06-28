@@ -15,6 +15,8 @@ require("./models/movies.model.js");
 // Execute Express function.
 const app = express();
 
+app.use(express.json());
+
 // Fetch MongoDB key from env file.
 const mongo_connect = process.env.mongo_connect;
 
