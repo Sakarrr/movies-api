@@ -1,10 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
+
 const indexHandler = require("./handlers/indexHandler");
 const getMovies = require("./handlers/getMovies.js");
 const createMovie = require("./handlers/createMovie.js");
 const editMovie = require("./handlers/editMovie.js");
 const deleteMovie = require("./handlers/deleteMovie.js");
+
 require("dotenv").config();
 
 // Import all models
@@ -16,7 +18,6 @@ const app = express();
 // Fetch MongoDB key from env file.
 const mongo_connect = process.env.mongo_connect;
 
-// Connect to MongoDB Atlas via Mongoose.
 mongoose
   .connect(mongo_connect, {})
   .then(() => {
@@ -44,6 +45,7 @@ app.patch("/movies", editMovie);
 app.delete("/movies", deleteMovie);
 
 // Listen to server.
+
 app.listen(8000, () => {
   console.log("Server Started!!");
 });
