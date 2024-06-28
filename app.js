@@ -1,6 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const indexHandler = require("./handlers/indexHandler.js");
 require("dotenv").config();
+
+// Import all models
+require("./models/movies.model.js");
 
 const app = express();
 
@@ -15,21 +19,8 @@ mongoose
     console.log("Connection failed!");
   });
 
-// Create a model for movies
-const movieSchema = new mongoose.Schema({
-  name: { type: String },
-  info: { type: String },
-  image: { type: String },
-  rating: { type: Number },
-});
-
-const movieModel = mongoose.model("movies", movieSchema);
-
-app.get("/", (req, res) => {
-  res.status(200).json({
-    message: "Success",
-  });
-});
+// Routes
+app.get("/", indexHandler);
 
 app.listen(8000, () => {
   console.log("Server Started!!");
