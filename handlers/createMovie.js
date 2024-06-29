@@ -4,27 +4,21 @@ const mongoose = require("mongoose");
 const createMovie = async (req, res) => {
   const MoviesModel = mongoose.model("movies"); // Should be exact to model name.
 
-  console.log(req.body);
   const { name, info, image, rating } = req.body;
 
   // Validations
-  if (!name) {
-    res.status(400).json({ status: "Failed", messgae: "Provide name" });
-    return;
-  }
+  try {
+    if (!name) throw "Name is required";
 
-  if (name.length < 3) {
+    if (name.length < 3) throw "Movie name must be atleast 3 chars long";
+
+    if (!info) throw "Name is required";
+
+    if (rating > 10 || rating < 0) throw "Rating must be between 0-10";
+  } catch (err) {
     res.status(400).json({
       status: "Failed",
-      messgae: "Movie name must be atleast 3 chars long",
-    });
-    return;
-  }
-
-  if (rating > 10 || rating < 0) {
-    res.status(400).json({
-      status: "Failed",
-      messgae: "Rating must be between 0-10",
+      message: err,
     });
     return;
   }
